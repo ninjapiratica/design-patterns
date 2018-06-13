@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.AbstractFactory;
 using System;
+using System.Threading.Tasks;
 
 namespace DesignPatterns
 {
@@ -9,7 +10,7 @@ namespace DesignPatterns
         {
             for (int i = 0; i < 2; i++)
             {
-                NewExample(FactoryExample, i);
+                NewExample(AbstractFactoryExample, i);
                 NewExample(BuilderExample, i);
             }
         }
@@ -22,9 +23,9 @@ namespace DesignPatterns
             example(exampleNumber);
         }
 
-        static void FactoryExample(int exampleNumber)
+        static void AbstractFactoryExample(int exampleNumber)
         {
-            Console.WriteLine("Factory Example");
+            Console.WriteLine("Abstract Factory Example");
 
             IFactory factory;
             if (exampleNumber % 2 == 0)
@@ -41,7 +42,16 @@ namespace DesignPatterns
 
         static void BuilderExample(int exampleNumber)
         {
+            Console.WriteLine("Builder Example");
 
+            var builder = new Builder.Builder();
+
+            var item = builder.SetFirst(exampleNumber + 5)
+                .SetSecond("a")
+                .SetThird(new { Name = "John", Age = 10 * (exampleNumber + 1) })
+                .CreateItem();
+
+            Console.WriteLine(item);
         }
     }
 }
